@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="css/dashSetor.css"> -->
+    <!-- <script src="./js/dashSetor.js"></script> -->
+    <script src="js/funcoes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="path/to/chartjs/dist/chart.umd.js"></script>
+    <script src="js/wordcloud2.js"></script>
+    <link rel="shortcut icon" type="imagex/png" href="./assets/img/logo_icon.png" />
+    <title>Análise Máquina | Health Touch</title>
+</head>
+<!-- <body onload="validarSessao(), validarSetor(), validarStatusUsb(), cpuMensal(), ramMensal(), discoMensal(), insightCpu(), insightRam(), insightDisco(), analiseGeral(), exibirAlertas()"> -->
+
+<body>
+    <style>
+      * {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.divPai {
+    display: flex;
+}
+
+/* começo do menu lateral*/
+.divPaiLateral {
+    background-color: #020F1F;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 13vw;
+    height: 100vh;
+}
+
+.filhoLateral {
+    width: 10vw;
+    height: 96vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.divNomeEmpresa {
+    width: 9vw;
+    height: 5vh;
+    position: relative;
+    top: 2%;
+}
+
+#textoEmpresa {
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+#nomeEmpresa {
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.divMainMenu {
+    width: 9vw;
+    height: 5vh;
+    position: relative;
+    top: 7%;
+}
+
+#pMainMenu {
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.divPaiOpcoesMenu {
+    width: 100%;
+    height: 40vh;
+    position: relative;
+    top: 8%;
+}
+
+.divPaiOpcoesMenu a {
+    text-decoration: none;
+}
+
+
+.divHome {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 6.7vw;
+}
+
+#iconMenuLateralHome {
+    width: 2vw;
+    height: 4vh;
+}
+
+#pMenuLateral {
+    color: white;
+    font-size: 11px;
+    text-decoration: none;
+}
+
+.divEstatisticas {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 8vw;
+    position: relative;
+    top: 5%;
+}
+
+#iconEstatiscasLateral {
+    width: 1.8vw;
+    height: 3.8vh;
+}
+
+.divEspaco {
+    width: 5vw;
+    height: 5vh;
+}
+
+.divDashboards {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 8.5vw;
+    position: relative;
+    top: 18%;
+}
+
+#iconDashboardsLateral {
+    width: 1.8vw;
+    height: 3.8vh;
+}
+
+.divComputador {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 7.5vw;
+    position: relative;
+    top: 3%;
+}
+
+#iconComputadorLateral {
+    width: 2vw;
+    height: 4.2vh;
+}
+
+.divCadastroComputador {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 7.5vw;
+    position: relative;
+    top: 8%;
+}
+
+#iconComputadorCadLateral {
+    width: 3vw;
+    height: 4vh;
+}
+
+.divAnaliseEquipe {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 7.2vw;
+    position: relative;
+    top: 13%;
+}
+
+#iconAnaliseEquipe {
+    width: 2vw;
+    height: 4vh;
+}
+
+.divCadastroEquipe {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 8.2vw;
+    position: relative;
+    top: 23%;
+}
+
+#iconCadastroEquipe {
+    width: 2vw;
+    height: 3.5vh;
+}
+
+.divHelp {
+    width: 9vw;
+    height: 5vh;
+    position: relative;
+    top: 20%;
+}
+
+.divPaiHelpMenu {
+    width: 9vw;
+    height: 5vh;
+    position: relative;
+    top: 20%;
+}
+
+#pHelp {
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.divHelpDesk {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 7vw;
+    position: relative;
+    top: 5%;
+}
+
+#iconHelpDesk {
+    width: 2vw;
+    height: 4vh;
+}
+
+.divConfiguracoes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 8.8vw;
+    position: relative;
+    top: 35%;
+}
+
+#iconConfiguracoes {
+    width: 2vw;
+    height: 4vh;
+}
+
+#logoMenuLateral {
+    width: 7vw;
+    height: 8vh;
+    position: relative;
+    top: 70%;
+}
+
+.divEspacoV2 {
+    background-color: rgba(255, 255, 255, 0.409);
+    width: 9vw;
+    height: 0.1vh;
+    position: relative;
+    top: 17%;
+
+}
+
+/* fim do menu lateral */
+
+/* começo da cabeçalho */
+.divPaiCabecalho {
+    width: 100vw;
+    /* height: 10vh; */
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+}   
+
+.filhoCabecalho {
+    width: 80vw;
+    height: 10vh;
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+}
+
+.direitaCabecalho {
+    width: 22vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.divPerfilCabecalho {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 14vw;
+    height: 7vh;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.textosIcon {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#tituloPerfil {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#cargoPerfil {
+    font-size: 12px;
+}
+
+.iconPerfilCabecalho {
+    width: 3vw;
+    height: 6vh;
+    border-radius: 50px;
+}
+
+.setaPerfilCabecalho {
+    width: 1vw;
+    height: 2vh;
+}
+
+.setaPerfilCabecalho:hover{
+    cursor: pointer;
+}
+
+.menuPerfil{
+    display: none;
+    position: absolute;
+    z-index: 1;
+    top: 58px;
+}
+
+.menuPerfil ul{ 
+    padding: 0;
+}
+
+.menuPerfil li{
+    padding: 8px 15px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+}
+
+.menuPerfil li:hover{
+    background-color: #f1f1f1;
+}
+
+.btnSair {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition-duration: .3s;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+    background-color: rgb(255, 65, 65);
+  }
+  
+  .sign {
+    width: 100%;
+    transition-duration: .3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .sign svg {
+    width: 17px;
+  }
+  
+  .sign svg path {
+    fill: white;
+  }
+
+  .txtBtn {
+    position: absolute;
+    right: 0%;
+    width: 0%;
+    opacity: 0;
+    color: white;
+    font-size: 1em;
+    font-weight: 600;
+    transition-duration: .3s;
+  }
+
+  .btnSair:hover {
+    width: 90px;
+    border-radius: 40px;
+    transition-duration: .3s;
+  }
+  
+  .btnSair:hover .sign {
+    width: 45%;
+    transition-duration: .3s;
+  }
+
+  .btnSair:hover .txtBtn {
+    opacity: 1;
+    width: 70%;
+    transition-duration: .3s;
+  }
+
+  .btnSair:active {
+    transform: translate(2px ,2px);
+  }
+
+.emailIconCabecalho {
+    width: 1.5vw;
+    height: 3vh;
+}
+
+.emailIconCabecalho:hover{
+    cursor: pointer;
+    animation: msg 0.9s ease-in-out 0s;
+}
+
+@keyframes msg{
+    0%,100% {
+        transform:  translate(0,0);
+    }
+    25% {
+        transform:  translate(0,-2.4px) rotate(5deg);
+    }
+    50% {
+        transform:  translate(0,-2.5px);
+    }
+    75% {
+        transform:  translate(0,-2.6px) rotate(-5deg);
+    }
+}
+
+
+
+.sinoIconCabecalho {
+    width: 1.5vw;
+    height: 
+    3vh;
+}
+
+.sinoIconCabecalho:hover{
+    cursor: pointer;
+    animation: bellRing 0.9s both;
+}
+
+@keyframes bellRing {
+    0%,
+    100% {
+      transform-origin: top;
+    }
+  
+    15% {
+      transform: rotateZ(10deg);
+    }
+  
+    30% {
+      transform: rotateZ(-10deg);
+    }
+  
+    45% {
+      transform: rotateZ(5deg);
+    }
+  
+    60% {
+      transform: rotateZ(-5deg);
+    }
+  
+    75% {
+      transform: rotateZ(2deg);
+    }
+  }
+
+/* TESTE */
+
+.esquerdaCabecalho {
+    /* width: 20vw; */
+    width: 50%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.inputLogin {
+    border-radius: 15px;
+    border: none;
+    height: 5vh;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    outline: none;
+    display: flex;
+    -webkit-transition: all 700ms cubic-bezier(0.23,1,0.32,1);
+    transition: all 700ms cubic-bezier(0.23,1,0.32,1);
+    position: relative;
+    width:30%;
+    padding: 0 20px;
+}
+
+.inputLogin:focus{
+    width: 100%;
+    transition: all 700ms cubic-bezier(0.23,1,0.32,1) 0s;
+    position: relative;
+}
+
+.inputLogin::placeholder {
+    font-size: 11px;
+    position: relative;
+    top: -5%;
+    left: 5%;
+}
+
+.lupaBusca {
+    width: 2vw;
+    height: 3.5vh;
+    position: relative;
+    right: 7%;
+}
+/* fim do cabeçalho */
+        .divFilho{
+            background-color: #dddddd;
+        }
+
+        .divDash{
+            display: flex;
+            flex-direction: column;
+            width: 93%;
+            justify-content: center;
+            margin: auto;
+        }
+
+        .tituloPagina{
+            display: flex;
+            justify-content: center;
+            color: pink;
+        }
+
+        .kpeis{
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+
+        .kpei{
+            border-radius: 10px;
+            border: solid 5px rgba(240, 46, 170, 1);
+            width: 16%;
+            padding: 15px;
+            align-items: center;
+            height: 10vh;
+            font-size: .9em;
+            background-color: whitesmoke;
+        }
+
+        .divTop{
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .divBot{
+            display: flex;
+            justify-content: space-between;
+            margin: 5px;
+        }
+
+        .divBotCpu{
+            margin: 5px 15px;
+        }
+
+        .left{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* margin-left: 10px; */
+        }
+
+        .right{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* margin-right: 10px; */
+        }
+
+        .txtTitulo{
+            display: flex;
+            justify-content: center;
+        }
+
+        .relatorio{
+            width: 35%;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        #relatorio{
+          padding: 15px 2px;
+          box-shadow: rgba(240, 46, 170, 0.4) 0px 5px, rgba(240, 46, 170, 0.3) 0px 10px, rgba(240, 46, 170, 0.2) 0px 15px, rgba(240, 46, 170, 0.1) 0px 20px, rgba(240, 46, 170, 0.05) 0px 25px;
+        }
+
+        .relatorio .left{
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            margin: 0;
+            height: 110%;
+            justify-content: space-around;
+        }
+
+        .relatorio .right{
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            margin: 0;
+            height: 110%;
+            justify-content: space-around;
+        }
+
+        .graficos{
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+        }
+
+        .grafCima{
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .grafBaixo{
+          display: flex;
+          flex-direction: row-reverse;
+          justify-content: space-between;
+          width: 100%;
+        }
+
+        .processos{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 15px;
+            /* border: solid #f02eaa66 5px; */
+            width: 55%;
+            /* margin: auto; */
+            padding: 5px;
+            background-color: whitesmoke;
+            /* box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px; */
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            height: 10%;
+            font-size: .9em;
+        }
+
+        .titulo{
+            color: purple;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .lista{
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+            margin: 5px;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+        .lista .pid{
+          width: 4rem;
+        }
+        .lista .nome{
+          width: 6rem;
+        }
+        .lista .cpu,.lista .ram{
+          width: 6rem;
+        }
+
+        #kpeiLeft{
+          box-shadow: rgba(240, 46, 170, 0.4) -5px 5px, rgba(240, 46, 170, 0.3) -10px 10px, rgba(240, 46, 170, 0.2) -15px 15px, rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px;
+        }
+
+        #kpeiRight{
+          box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
+        }
+
+        .tituloLista{
+          font-weight: 700;
+        }
+
+        .txtTitulo{
+          font-weight: 600;
+        }
+
+        .divNuvem{
+          width: 38%;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        #wordCloudChart{
+          width: 100%;
+          height: 100%;
+        }
+
+    </style>
+    <div class="divPai">
+        <!-- inicio menu lateral -->
+        <div class="divPaiLateral">
+            <div class="filhoLateral">
+
+                <div class="divNomeEmpresa">
+
+                    <p id="textoEmpresa">Bem Vindo</p>
+                    <p id="nomeEmpresa">Bem Vindo <br><span> Nome da Empresa </span></p>
+                </div>
+
+                <div class="divMainMenu">
+                    <p id="pMainMenu">MAIN MENU</p>
+                </div>
+
+                <div class="divPaiOpcoesMenu">
+                    <a href="setores.html" id="pMenuLateral">
+                        <div class="divHome">
+                            <img id="iconMenuLateralHome" src="assets/img/grafico-de-setores.png">
+                            <div class="divEspaco"></div>
+                            Setores
+                        </div>
+                    </a>
+
+                    <a href="cadastroMaquinas.html" id="pMenuLateral">
+                        <div class="divComputador">
+                            <img id="iconComputadorLateral" src="assets/img/computador (4).png">
+                            <div class="divEspaco"></div>
+                            Cadastro Máquinas
+                        </div>
+                    </a>
+
+                    <a href="analiseMaquinaTI.html" id="pMenuLateral">
+                        <div class="divCadastroComputador">
+                            <img id="iconComputadorCadLateral" src="assets/img/definicoes.png">
+                            <div class="divEspaco"></div>
+                            Análise Máquinas
+                        </div>
+                    </a>
+
+                    <a href="cadastroFuncionarios.html" id="pMenuLateral">
+                        <div class="divAnaliseEquipe">
+                            <img id="iconAnaliseEquipe" src="assets/img/carteira-de-identidade.png">
+                            <div class="divEspaco"></div>
+                            Cadastro Equipe
+                        </div>
+                    </a>
+
+                    <a href="analiseFuncionario.html" id="pMenuLateral">
+                        <div class="divDashboards">
+                            <img id="iconDashboardsLateral" src="assets/img/equipe.png">
+                            <div class="divEspaco"></div>
+                            Análise Funcionários
+                        </div>
+                    </a>
+
+                    <a href="" id="pMenuLateral">
+                        <div class="divCadastroEquipe">
+                            <img id="iconCadastroEquipe" src="assets/img/mais (2).png">
+                            <div class="divEspaco"></div>
+                            Dashboards
+                        </div>
+                    </a>
+                </div>
+
+                <div class="divEspacoV2"></div>
+
+                <div class="divHelp">
+                    <p id="pHelp">HELP</p>
+                </div>
+
+                <div class="divPaiHelpMenu">
+                    <a href="SuporteHealthTooch.html" id="pMenuLateral">
+                        <div class="divHelpDesk">
+                            <img id="iconHelpDesk" src="assets/img/suporte-ao-cliente.png">
+                            <div class="divEspaco"></div>
+                            HelpDesk
+                        </div>
+                    </a>
+                    <a href="AtualizarUser.html" id="pMenuLateral">
+                        <div class="divConfiguracoes">
+                            <img id="iconConfiguracoes" src="assets/img/botao-de-roda-dentada-de-configuracoes.png">
+                            <div class="divEspaco"></div>
+                            Configurações
+                        </div>
+                    </a>
+                    <a href="index.html">
+                        <img id="logoMenuLateral" src="assets/img/logoMenu.png">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- fim do menu lateral -->
+
+        <!-- inicio do cabeçalho -->
+        <div class="divPaiCabecalho">
+            <div class="filhoCabecalho">
+
+                <div class="esquerdaCabecalho">
+                    <input type="text" class="inputLogin" placeholder="Pesquisar"></input>
+                    <img src="assets/img/lupa.png" class="lupaBusca">
+                </div>
+
+                <div class="direitaCabecalho">
+                    <img class="emailIconCabecalho" src="assets/img/iconEmail.png">
+                    <img class="sinoIconCabecalho" src="assets/img/notificacaoIcon.png">
+                    <div class="divPerfilCabecalho">
+                        <img class="iconPerfilCabecalho" src="assets/img/fotoPerfil.png">
+                        <div class="textosIcon">
+                            <p id="tituloPerfil">Anthony Bento</p>
+                            <p id="cargoPerfil">CEO</p>
+                        </div>
+                        <img class="setaPerfilCabecalho" src="assets/img/setaIcon.png" onclick="exibirMenuPerfil()">
+                        <div id="menuPerfil" class="menuPerfil">
+                            <ul>
+                                <button class="btnSair">
+                                    <div class="sign"><svg viewBox="0 0 512 512">
+                                            <path
+                                                d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z">
+                                            </path>
+                                        </svg></div>
+
+                                    <div class="txtBtn" onclick="limparSessao()">Sair</div>
+                                </button>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- começo conteudo pagina -->
+                <div class="divFilho">
+                    <div class="divDash">
+                    <!-- <h1 class="tituloPagina">DASHBOARD</h1> -->
+                    <div class="kpeis">
+                        <div class="kpei" id="kpeiLeft">
+                            <div class="divTop">
+                                <span class="txtTitulo"><span class="valor" id="totalPico">X</span></span>
+                            </div>
+                            <div class="divBot divBotCpu">
+                                <div class="left">
+                                    <span class="txt">CPU</span>
+                                    <span class="valor" id="cpuPico">X</span>
+                                </div>
+                                <div class="right">
+                                    <span class="txt">RAM</span>
+                                    <span class="valor" id="ramPico">X</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="kpei relatorio" id="relatorio">
+                            <div class="left">
+                                <span class="txtTitulo" >Uso médio da CPU</span>
+                                <span class="txtTitulo" >Frequência da CPU</span>
+                                <span class="txtTitulo" >Uso máximo da CPU</span>
+                            </div>
+                            <div class="right">
+                                <span class="txt" id="mediaRam">4,2MB</span>
+                                <span class="txt" id="frequenciaRam">Normal (37%)</span>
+                                <span class="txt" id="maxRam">6,9MB</span>
+                            </div>
+                        </div>
+
+                        <div class="kpei" id="kpeiRight">
+                          <span class="txtTitulo">Estado da RAM</span>
+                          <div class="divBot">
+                              <div class="left">
+                                  <span class="txt">Em uso</span>
+                                  <span class="valor" id="ramUsada">X</span>
+                              </div>
+                              <div class="right">
+                                  <span class="txt">Livre</span>
+                                  <span class="valor" id="ramDisponivel">X</span>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+
+                    <div class="graficos">
+                        <div class="grafCima">  
+                            <div class="chart-container" style="position: relative; height:40vh; width:29vw">
+                                <canvas id="myChart"></canvas>
+                              </div>
+                              <div class="chart-container" style="position: relative; height:40vh; width:29vw">
+                                <canvas id="myChart2"></canvas>
+                              </div>
+                              <div class="chart-container" style="position: relative; height:40vh; width:29vw">
+                                <canvas id="myChart3"></canvas>
+                              </div>                                                            
+                        </div>
+                        <div class="grafBaixo">
+                            <div class="processos" id="boxProcessos">
+                                <span class="titulo">TOP 5 Processos que consomem mais CPU</span>
+                                <div class="lista">
+                                  <span class="tituloLista pid">PID</span>
+                                  <span class="tituloLista nome">Processo</span>
+                                  <span class="tituloLista ram">Uso de RAM</span>
+                                  <span class="tituloLista cpu">Uso de CPU</span>
+                                  <!-- <span class="tituloLista">Tempo de Uso</span> -->
+                              </div>
+                              <!-- <div class="lista" id="listaProcessos"> -->
+                              </div>
+                              <div class="divNuvem">
+                                <span class="titulo">Processos mais usados</span>
+                              <canvas id="wordCloudChart"></canvas>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- fim conteudo pagina -->
+          </div>
+        <!-- fim do cabeçalho -->
+      </div>
+</body>
+</html>
+
+<script>
+var Empresa = sessionStorage.NOME_FANTASIA_COLABORADOR;
+nomeEmpresa.innerHTML = Empresa;
+
+let proximaAtualizacao
+window.onload = obterPico()
+window.onload = obterEstadoRam()
+window.onload = obterRelatorioRam()
+window.onload = plotarScatter()
+window.onload = plotarBarra()
+window.onload = plotarLinha()
+window.onload = obterProcessos()
+window.onload = plotarWordCloud()
+
+Chart.defaults.color = '#00000';
+Chart.defaults.datasets.line.showLine = false;
+// Chart.defaults.elements.bar.borderWidth = 20;
+// Chart.defaults.elements.point.pointStyle = 'star'
+Chart.defaults.elements.point.pointStyle = 'crossRot'
+// Chart.defaults.elements.point.pointStyle = 'rectRot'
+Chart.defaults.elements.point.backgroundColor = 'rgb(255, 99, 132)'
+Chart.defaults.elements.point.borderColor = 'rgb(255, 99, 132)'
+Chart.defaults.elements.point.borderWidth	 = 3
+
+//Kpeis
+//Começo dos Picos
+function obterPico(idMaquina) {
+  if (proximaAtualizacao != undefined) {
+    clearTimeout(proximaAtualizacao)
+  }
+  fetch(`/dashboard/pico/${idMaquina}`, { cache: 'no-store' })
+    .then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`)
+          console.log('iniciando plotagem do gráfico...')
+
+                var z = JSON.stringify(resposta)
+                var maquinas = JSON.parse(z)
+                maquinas.forEach(item => {
+                var cpuPico = item.picoCPU
+                var texto = document.getElementById('cpuPico')
+                texto.innerHTML = cpuPico
+
+                var ramPico = item.picoRAM
+                var texto = document.getElementById('ramPico')
+                texto.innerHTML = ramPico
+
+                var totalPico = cpuPico + ramPico
+                var texto = document.getElementById('totalPico')
+                texto.innerHTML = totalPico + " Picos"
+  })
+  proximaAtualizacao = setTimeout(() => obterPico(idMaquina), 2000)
+//   console.clear()
+  console.log('----------------------------------------------')
+  console.log(
+    'Estes dados foram recebidos pela funcao "obterPico" e passados para "atualizarPico":'
+  )
+  console.log(resposta)
+        })
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API')
+        proximaAtualizacao = setTimeout(() => obterPico(idMaquina), 2000)
+        // console.clear()
+      }
+    })
+    .catch(function (error) {
+      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`)
+    })
+}
+//Fim dos Picos
+
+//Começo Estado Ram
+function obterEstadoRam(idMaquina) {
+  if (proximaAtualizacao != undefined) {
+    clearTimeout(proximaAtualizacao)
+  }
+  fetch(`/dashboard/estadoRam/${idMaquina}`, { cache: 'no-store' })
+    .then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`)
+          console.log('iniciando plotagem do gráfico...')
+                var z = JSON.stringify(resposta)
+                var maquinas = JSON.parse(z)
+                maquinas.forEach(item => {
+                var ramUsada = item.ramUsada
+                var texto = document.getElementById('ramUsada')
+                texto.innerHTML = ramUsada
+
+                var ramDisponivel = item.ramDisponivel
+                var texto = document.getElementById('ramDisponivel')
+                texto.innerHTML = ramDisponivel
+  })
+  proximaAtualizacao = setTimeout(() => obterEstadoRam(idMaquina), 2000)
+//   console.clear()
+  console.log('----------------------------------------------')
+  console.log(
+    'Estes dados foram recebidos pela funcao "obterEstadoRam" e passados para "atualizarPico":'
+  )
+  console.log(resposta)
+        })
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API')
+        proximaAtualizacao = setTimeout(() => obterEstadoRam(idMaquina), 2000)
+        // console.clear()
+      }
+    })
+    .catch(function (error) {
+      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`)
+    })
+}
+//Fim Estado Ram
+
+//Começo Relatorio Ram
+function obterRelatorioRam(idMaquina) {
+  if (proximaAtualizacao != undefined) {
+    clearTimeout(proximaAtualizacao)
+  }
+  fetch(`/dashboard/relatorioRam/${idMaquina}`, { cache: 'no-store' })
+    .then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`)
+          console.log('iniciando plotagem do gráfico...')
+                var z = JSON.stringify(resposta)
+                var maquinas = JSON.parse(z)
+                maquinas.forEach(item => {
+                var media = item.media
+                var texto = document.getElementById('mediaRam')
+                texto.innerHTML = `${media}%`
+
+                var frequencia = item.frequencia
+                var texto = document.getElementById('frequenciaRam')
+                    if (frequencia <= 35){
+                        texto.innerHTML = `Normal (${frequencia}%)`
+                    } else if (frequencia <= 60){
+                        texto.innerHTML = `Alerta (${frequencia}%)`
+                    } else {
+                        texto.innerHTML = `Crítica (${frequencia}%)`
+                    }
+
+                var max = item.max
+                var texto = document.getElementById('maxRam')
+                texto.innerHTML = `${max}%`
+  })
+  proximaAtualizacao = setTimeout(() => obterRelatorioRam(idMaquina), 2000)
+//   console.clear()
+  console.log('----------------------------------------------')
+  console.log(
+    'Estes dados foram recebidos pela funcao "obterRelatorioRam" e passados para "atualizarPico":'
+  )
+  console.log(resposta)
+        })
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API')
+        proximaAtualizacao = setTimeout(() => obterRelatorioRam(idMaquina), 2000)
+        // console.clear()
+      }
+    })
+    .catch(function (error) {
+      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`)
+    })
+}
+//Fim Relatorio Ram
+
+//Aq começa os gráficos
+//Começo CPU vs TEMP
+function plotarScatter(idMaquina) {
+  if (proximaAtualizacao != undefined) {
+    clearTimeout(proximaAtualizacao)
+  }
+  fetch(`/dashboard/scatter/${idMaquina}`, { cache: 'no-store' })
+    .then(function (response) {
+        console.log("teste")
+        console.log(response)
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`)
+          console.log('iniciando plotagem do gráfico...')
+
+//I dont give a shit ab my life :)
+
+// Criando estrutura para plotar gráfico - dados
+let dados = {
+    datasets: [{
+        label: 'CPU vs. Temperatura',
+        data: [],
+        backgroundColor: 'rgb(255, 99, 132)',
+        pointBackgroundColor: `rgb(255, 99, 132)`,
+        pointRadius: 5
+    }]
+};
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        dados.datasets[0].data = [];
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            dados.datasets[0].data.push({x: registro.usoCpu, y: registro.tempCpu})
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+        type: 'scatter',
+        data: dados,
+        options: {
+          maintainAspectRatio: false,
+            scales: {
+            x: {
+                type: 'linear',
+                position: 'bottom'
+            }
+            },
+            plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Relação entre o Uso de CPU e a Temperatura'
+      }
+    }
+        }
+        };
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById(`myChart`),
+            config
+        );
+
+  proximaAtualizacao = setTimeout(() => plotarScatter(idMaquina), 2000)
+//   console.clear()
+  console.log('----------------------------------------------')
+  console.log(
+    'Estes dados foram recebidos pela funcao "plotarScatter"'
+  )
+  console.log(resposta)
+        })
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API')
+        proximaAtualizacao = setTimeout(() => plotarScatter(idMaquina), 2000)
+        // console.clear()
+      }
+    })
+    .catch(function (error) {
+      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`)
+    })
+}
+//Fim CPU vs TEMP
+
+//Começo Média Pico
+function plotarBarra(idMaquina) {
+  if (proximaAtualizacao != undefined) {
+    clearTimeout(proximaAtualizacao)
+  }
+  fetch(`/dashboard/barra/${idMaquina}`, { cache: 'no-store' })
+    .then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`)
+          console.log('iniciando plotagem do gráfico...')
+
+// Criando estrutura para plotar gráfico - dados
+let dados = {
+  // labels: ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado", "Domingo"],
+  labels: ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab", "Dom"],
+    datasets: [{
+        label: 'Quantidade',
+        data: [],
+        // borderColor: 'rgba(138,43,226, 1)',
+        borderWidth: 0
+    }]
+};
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        var qtdPorSemana = []
+        dados.datasets[0].data = [];
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            qtdPorSemana.push(registro.seg)
+            qtdPorSemana.push(registro.ter)
+            qtdPorSemana.push(registro.qua)
+            qtdPorSemana.push(registro.qui)
+            qtdPorSemana.push(registro.sex)
+            qtdPorSemana.push(registro.sab)
+            qtdPorSemana.push(registro.dom)
+        }
+        dados.datasets[0].data = qtdPorSemana
+
+        const ctx = document.getElementById(`myChart2`).getContext('2d');
+        const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+        gradient.addColorStop(0, 'rgba(75,0,130, 1)');
+        gradient.addColorStop(1, 'rgba(139,0,139, 1');
+        dados.datasets[0].backgroundColor = gradient;
+
+        //Dando destaque
+        let maxPico = dados.datasets[0].data.indexOf(Math.max(...dados.datasets[0].data))
+        // let corDestaque = 'rgba(218,112,214, 1)'
+        let corDestaque = ctx.createLinearGradient(0, 0, 0, 300);
+        corDestaque.addColorStop(0, 'rgba(148,0,211, 1)');
+        corDestaque.addColorStop(1, 'rgba(186,85,211, 1');
+        dados.datasets[0].backgroundColor = corDestaque;
+
+        dados.datasets[0].backgroundColor = dados.datasets[0].data.map((valor, indice) => (indice === maxPico) ? gradient : corDestaque);
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+        console.log('i looked at you and said oooooooooooooooooooooooooooo dont hate me.........')
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+        type: 'bar',
+        data: dados,
+        options: {
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          },
+            plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Quantidade de Picos de CPU durante a Semana'
+      }
+    }   
+        },
+      };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart2 = new Chart(
+            document.getElementById(`myChart2`),
+            config
+        );
+
+  proximaAtualizacao = setTimeout(() => plotarBarra(idMaquina), 2000)
+//   console.clear()
+  console.log('----------------------------------------------')
+  console.log(
+    'Estes dados foram recebidos pela funcao "plotarBarra"'
+  )
+  console.log(resposta)
+        })
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API')
+        proximaAtualizacao = setTimeout(() => plotarBarra(idMaquina), 2000)
+        // console.clear()
+      }
+    })
+    .catch(function (error) {
+      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`)
+    })
+}
+//Fim Média Pico
+
+//Começo Estabilidade CPU
+function plotarLinha(idMaquina) {
+  if (proximaAtualizacao != undefined) {
+    clearTimeout(proximaAtualizacao)
+  }
+  fetch(`/dashboard/linha/${idMaquina}`, { cache: 'no-store' })
+    .then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`)
+          console.log('iniciando plotagem do gráfico...')
+
+// Criando estrutura para plotar gráfico - dados
+let dados = {
+  labels: ["9H", "10H", "11H", "12H", "13H", "14H", "15H", "16H", "17H"],
+    datasets: [{
+        label: 'Média',
+        data: [],
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        // borderColor: 'rgb(206, 169, 223)',
+        borderWidth: 1,
+        fill: true,
+        tension: 0.4,
+        pointStyle: false
+    }]
+};
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        var mediaPorHr = []
+        dados.datasets[0].data = [];
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            mediaPorHr.push(registro.hr1)
+            mediaPorHr.push(registro.hr2)
+            mediaPorHr.push(registro.hr3)
+            mediaPorHr.push(registro.hr4)
+            mediaPorHr.push(registro.hr5)
+            mediaPorHr.push(registro.hr6)
+            mediaPorHr.push(registro.hr7)
+            mediaPorHr.push(registro.hr8)
+            mediaPorHr.push(registro.hr9)
+        }
+        dados.datasets[0].data = mediaPorHr
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        const ctx = document.getElementById(`myChart3`).getContext('2d');
+        const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+        gradient.addColorStop(0, 'rgba(106,90,205, 1)');
+        gradient.addColorStop(1, 'rgba(0,191,255, 0.9');
+        dados.datasets[0].backgroundColor = gradient;
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+        type: 'line',
+        data: dados,
+        options: {
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          },
+            plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Estabilidade da CPU por horários'
+      }
+    }   
+        },
+      };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart3 = new Chart(
+            document.getElementById(`myChart3`),
+            config
+        );
+
+  proximaAtualizacao = setTimeout(() => plotarLinha(idMaquina), 2000)
+//   console.clear()
+  console.log('----------------------------------------------')
+  console.log(
+    'Estes dados foram recebidos pela funcao "plotarLinha"'
+  )
+  console.log(resposta)
+        })
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API')
+        proximaAtualizacao = setTimeout(() => plotarLinha(idMaquina), 2000)
+        // console.clear()
+      }
+    })
+    .catch(function (error) {
+      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`)
+    })
+}
+//Fim Estabilidade CPU
+
+//Processos
+//Começo TOP Processos
+function obterProcessos(idMaquina) {
+  if (proximaAtualizacao != undefined) {
+    clearTimeout(proximaAtualizacao)
+  }
+  fetch(`/dashboard/listaProcessos/${idMaquina}`, { cache: 'no-store' })
+    .then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`)
+
+          var z = JSON.stringify(resposta)
+                var maquinas = JSON.parse(z)
+                document.getElementById('boxProcessos').innerHTML = `
+                              <span class="titulo">TOP 5 Processos que consomem mais CPU</span>
+                                <div class="lista">
+                                  <span class="tituloLista pid">PID</span>
+                                  <span class="tituloLista nome">Processo</span>
+                                  <span class="tituloLista ram">Uso de RAM</span>
+                                  <span class="tituloLista cpu">Uso de CPU</span>
+                              </div>
+                `
+                maquinas.forEach(item => {
+                document.getElementById('boxProcessos').innerHTML += `
+                <div class="lista">
+                    <span class="pid" id="pidProcesso">${item.PID}</span>
+                    <span class="nome" id="nomeProcesso">${item.nome}</span>
+                    <span class="ram" id="usoRamProcesso">${item.usoRAM}</span>
+                    <span class="cpu" id="usoCpuProcesso">${item.usoCPU}</span>
+                </div>
+                `
+                })
+
+  proximaAtualizacao = setTimeout(() => obterProcessos(idMaquina), 2000)
+//   console.clear()
+  console.log('----------------------------------------------')
+  console.log(
+    'Estes dados foram recebidos pela funcao "obterProcessos"'
+  )
+  console.log(resposta)
+        })
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API')
+        proximaAtualizacao = setTimeout(() => obterProcessos(idMaquina), 2000)
+        // console.clear()
+      }
+    })
+    .catch(function (error) {
+      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`)
+    })
+}
+//Fim TOP Processos
+
+//Começo Word Cloud
+function plotarWordCloud(idMaquina) {
+  if (proximaAtualizacao != undefined) {
+    clearTimeout(proximaAtualizacao)
+  }
+  fetch(`/dashboard/wordCloud/${idMaquina}`, { cache: 'no-store' })
+    .then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`)
+
+        var words = []
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            words.push({text: `${registro.nome}`, value: registro.quantidade})
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Dados:')
+        console.log(words)
+        console.log('----------------------------------------------')
+
+      // Configuração da nuvem de palavras
+      const config = {
+        list: words.map(word => ({ word: word.text, weight: word.value })), //atribui as palavras
+        fontFamily: 'Arial, sans-serif', //fonte
+        color: 'random-dark', //aq poe as cores q serão exibidas
+        backgroundColor: '#66000000', //cor de fundo
+        rotateRatio: 0, //se as palavras vão girar ou n
+        shuffle: false, //se embaralha o local das palavras
+        weightFactor: 1, // tamanho da tela algo assim
+        fontWeight: "bold", //deixar negrito
+        shrinkToFit: true, //aq é pra caber todas as palavras na tela
+        shape: "star", //formato em q as palavras vao formar
+        ellipticity: 1 // precisão do formato
+      }
+
+      // Renderizando a nuvem de palavras no canvas 'wordCloudChart'
+      WordCloud(document.getElementById('wordCloudChart'), config)
+
+  proximaAtualizacao = setTimeout(() => plotarWordCloud(idMaquina), 2000)
+//   console.clear()
+  console.log('----------------------------------------------')
+  console.log(
+    'Estes dados foram recebidos pela funcao "plotarWordCloud"'
+  )
+  console.log(resposta)
+        })
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API')
+        proximaAtualizacao = setTimeout(() => plotarWordCloud(idMaquina), 2000)
+        // console.clear()
+      }
+    })
+    .catch(function (error) {
+      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`)
+    })
+}
+//Fim Word Cloud
+</script>

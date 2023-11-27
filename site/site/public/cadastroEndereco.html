@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  
+    <link rel="stylesheet" href="./css/cadastro.css" />
+    <link rel="stylesheet" href="css/indexV2.css" />
+    <script src="./js/funcoes.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sweetalert2.all.min.js"></script> -->
+
+    <link
+      rel="shortcut icon"
+      type="imagex/png"
+      href="./assets/img/logo_icon.png"
+    />
+
+    <title>Cadastro | Health Touch</title>
+  </head>
+  <body>
+    <!-- começo do cabeçalho -->
+    <div class="paiCabecalho">
+      <div class="filhoCabecalho">
+        <div class="esquerdaCabecalho">
+          <img
+            src="./assets/img/logo_navbar.png"
+            id="imgEsquerdaCabecalho"
+            onclick="home()"
+          />
+        </div>
+
+        <div class="direitaCabecalho">
+          <div class="subDireitaCabecalho">
+            <div class="divSaibaMais">
+              <a href="/index.html#saibaMais">SAIBA MAIS</a>
+            </div>
+            <div class="divCadastro"><a href="cadastro.html">CADASTRO</a></div>
+            <div class="divLogin"><a href="login.html">LOGIN</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- fim do cabeçalho -->
+
+    <div class="wrapper active-popup">
+      <div class="form-box login">
+        <h2>Registrar</h2>
+        <!-- <form action="#"> -->
+          <div class="input-box">
+            <span class="icon">
+              <ion-icon name="person"></ion-icon>
+            </span>
+            <input type="number" id="input_Cep" />
+            <label>CEP</label>
+          </div>
+
+          <div class="input-box">
+            <span class="icon">
+              <ion-icon name="lock-closed"></ion-icon>
+            </span>
+            <input type="text" id="input_Estado" />
+            <label>Estado</label>
+          </div>
+
+          <div class="input-box">
+            <span class="icon">
+              <ion-icon name="lock-closed"></ion-icon>
+            </span>
+            <input type="text" id="input_Cidade" />
+            <label>Cidade</label>
+          </div>
+
+          <div class="input-box">
+            <span class="icon">
+              <ion-icon name="lock-closed"></ion-icon>
+            </span>
+            <input type="text" id="input_Rua" />
+            <label>Rua</label>
+          </div>
+
+          <div class="input-box">
+            <span class="icon">
+              <ion-icon name="lock-closed"></ion-icon>
+            </span>
+            <input type="number" id="input_Numero" />
+            <label>Número</label>
+          </div>
+
+          <div class="remember-forgot">
+            <label
+              ><input type="checkbox" id="termos" />Eu concordo com os termos &
+              condições</label
+            >
+          </div>
+          <button onclick="cadastrarEndereco()" type="submit" class="btn">
+            Registrar 
+          </button>
+          <div class="login-register">
+            <p>Já tem uma conta? <a href="login.html" class="login-link">Login</a></p>
+          </div>
+       
+      </div>
+    
+      </div> 
+    </div>
+
+  
+  </body>
+</html>
+<script>
+
+
+  function cadastrarEndereco() {
+    //Recupere o valor da nova input pelo nome do id
+    // Agora vá para o método fetch logo abaixo
+    var cepVar = input_Cep.value
+    var estadoVar = input_Estado.value
+    var cidadeVar = input_Cidade.value
+    var ruaVar = input_Rua.value
+    var numeroVar = input_Numero.value
+   
+    var termos = document.getElementById('termos')
+
+    if (cepVar == '' || estadoVar == '' || cidadeVar == '' || ruaVar == '' || numeroVar == '') {
+      // cardErro.style.display = "block"
+      console.log("Mensagem de erro para todos os campos em branco")
+
+
+      return false
+    } 
+    else {
+      setInterval(sumirMensagem, 10000)
+
+      // Enviando o valor da nova input
+     
+      fetch('/usuarios/cadastrarEndereco', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          // crie um atributo que recebe o valor recuperado aqui
+          // Agora vá para o arquivo routes/usuario.js
+          cepServer: cepVar,
+          estadoServer: estadoVar,
+          cidadeServer: cidadeVar,
+          ruaServer: ruaVar,
+          numeroServer: numeroVar
+          
+          
+        })
+      })
+        .then(function (resposta) {
+          console.log('resposta: ', resposta)
+
+          if (resposta.ok) {
+            console.log("Cadastro realizado com sucesso! Redirecionando para tela de Login.")
+            
+
+            setTimeout(() => {
+              window.location = 'cadastroRL.html'
+            }, '2000')
+
+            limparFormulario()
+          } else {
+            throw 'Houve um erro ao tentar realizar o cadastro!'
+          }
+        })
+        .catch(function (resposta) {
+          console.log(`#ERRO: ${resposta}`)
+        })
+
+      return false
+    }
+  }
+
+  
+
+  function sumirMensagem() {
+    // cardErro.style.display = 'none'
+  }
+
+  function visualizarTermos() {
+    // cardErro.style.display = 'block'
+    console.log("Ao assinar esses termos eu garanto que não causarei problemas, não hackearei o site e serei responsavel jogando genshin impact.")
+    setTimeout(sumirMensagem, 10000)
+  }
+
+  function btnLogin() {
+    window.location.href = 'login.html'
+  }
+
+  function home() {
+    window.location = '/index.html'
+  }
+</script>
