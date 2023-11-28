@@ -1,7 +1,7 @@
-create database individual2;
-use individual2;
+create database if not exists HealthTouch;
+use HealthTouch;
 
-
+show tables;
 -- Plano --
 
 create table Plano (
@@ -19,7 +19,7 @@ insert into Plano values
 insert into Plano values
 (null, 'Ultra', 'máquinas ilimitadas');
 
-select * from plano;
+select * from Plano;
 
 -- Empresa --
 
@@ -108,7 +108,7 @@ constraint fk_nivel_acesso_colaborador foreign key(fkNivelAcesso) references Niv
 constraint pk_composta_colaborador primary key (idColaborador, fkEmpresa, fkStatus, fkNivelAcesso)
 );
 
-insert into Colaborador values (null, 'Fernanda Caramico', 'caramico@gmail.com', '123123', 37637602885, 1, 1, 1);
+insert into Colaborador values (null, 'Fernanda Caramico', 'q', 'q', 37637602885, 1, 1, 3);
 
 select * from Colaborador;
 
@@ -168,7 +168,7 @@ insert into TipoMaquina values
 insert into TipoMaquina values 
 (null, 'Toten');
 
-select * from tipoMaquina;
+select * from TipoMaquina;
 
 -- Status da Máquina --
 
@@ -248,7 +248,7 @@ constraint fk_tipo_maquina_analise_toten foreign key(fkTipoMaquina) references T
 constraint pk_composta_analise_toten primary key (idAnaliseToten,fkMaquina, fkEmpresa,fkPlanoEmpresa,fkTipoMaquina)
 );
 
-select * from AnaliseToten;
+select * from analiseToten;
 
 -- Componetes --
 
@@ -281,10 +281,13 @@ select * from Componente;
 
 -- Monitoramento -- 
 
-create table monitoramento (
+create table Monitoramento (
 idMonitoramento int auto_increment,
 porcentagem varchar (45),
 dataHora datetime,
+ramDisponivel varchar(20),
+ramUsada varchar(20),
+frequencia varchar(20), -- freqCpu
 fkComponente int, 
 constraint fk_componente_monitoramento foreign key(fkComponente) references Componente(idComponente),
 fkMaquina int, 
@@ -299,9 +302,8 @@ constraint pk_composta_monitoramnto primary key (idMonitoramento,fkComponente,fk
 );
 
 -- Processo --
-
 create table Processo (
-idProcesso int  auto_increment,
+idProcesso int auto_increment,
 nome varchar(45),
 PID int,
 usoCPU varchar(45),
@@ -313,12 +315,11 @@ constraint fk_empresa_processo foreign key(fkEmpresa) references Empresa(idEmpre
 fkTipoMaquina int, 
 constraint fk_tipo_maquina_processo foreign key(fkTipoMaquina) references TipoMaquina(idTipoMaquina),
 fkStatusMaquina int, 
-constraint fk_status_maquina_processo foreign key(fkStatusMaquina) references StatusMaquina(idStatusMaquina),
+constraint fk_status_maquina_processo foreign key(fkStatusMaquina) references statusMaquina(idStatusMaquina),
 constraint pk_composta_processo primary key (idProcesso, fkMaquina,  fkEmpresa, fkTipoMaquina, fkStatusMaquina)
 );
 
 select * from Processo;
-
 
 -- Aviso --
 
@@ -393,44 +394,15 @@ END;
 //
 DELIMITER ;
 
+
+SELECT * FROM Colaborador;
+select * from parametro;
 select * from aviso;
-
-show tables;
-
-select * from usb;
-    
-    SELECT a.idAviso, DATE_FORMAT(a.dataHora, '%d/%m/%Y %H:%i:%s') as dtHr,
-    a.fkMonitoramento, a.fkComponente, a.fkMaquina, a.fkEmpresa,
-    a.fkPlanoEmpresa, a.fkTipoMaquina, a.nivelAviso, c.nome as componente, mt.porcentagem
-    FROM aviso as a join monitoramento as mt on mt.idMonitoramento = a.fkMonitoramento
-    join componente as c on a.fkComponente = c.idComponente
-    join maquina as m on a.fkMaquina = m.idMaquina
-    join empresa as e on a.fkEmpresa = e.idEmpresa
-    join plano as p on a.fkPlanoEmpresa = p.idPlano
-    join tipoMaquina as t on a.fkTipoMaquina = t.idTipoMaquina
-    where a.fkEmpresa = 1 and a.fkMaquina = 1 and a.fkTipoMaquina = 1
-    order by dtHr;
-    
-
-create table monitoramento2 (
-idMonitoramento2 int auto_increment,
-dataHora datetime,
-ramDisponivel varchar(20),
-ramUsada varchar(20),
-freqCpu varchar(20),
-temperatura varchar(20),
-fkComponente int, 
-constraint fk_individual_componente  foreign key(fkComponente) references Componente(idComponente),
-fkMaquina int, 
-constraint fk_individual_monitoramento  foreign key(fkMaquina) references Maquina(idMaquina),
-fkPlanoEmpresa int, 
-constraint fk_plano_empresa_individual  foreign key(fkPlanoEmpresa) references Plano(idPlano),
-fkTipoMaquina int, 
-constraint fk_tipo_maquina_individual  foreign key(fkTipoMaquina) references TipoMaquina(idTipoMaquina),
-fkEmpresaMaquina int, 
-constraint fk_empresa_individual  foreign key(fkEmpresaMaquina) references Maquina(idMaquina),
-constraint pk_composta_individual primary key (idMonitoramento2,fkMaquina, fkPlanoEmpresa, fkTipoMaquina, fkEmpresaMaquina)
-);
- select * from colaborador;
- select * from monitoramento2;
- desc monitoramento2;
+select * from maquina;
+select * from localSala;
+select * from setor;
+select * from Monitoramento;
+select * from maquina;
+select * from plano;
+select * from empresa;
+select * from processo;
